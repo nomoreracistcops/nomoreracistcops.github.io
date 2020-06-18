@@ -2,7 +2,64 @@
 <head>
 	<link rel="icon" href="img.png"/>
 	<title>End Police Racism in Your Town</title>
-	<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,800|Press+Start+2P&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ramaraja|Work+Sans:400,600,800|Press+Start+2P&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#container article').each(function(){
+			var aH = $(this).height();
+			var tH = $(this).find('.title').height();
+			var h = Math.max(aH, tH);
+
+			$(this).css('min-height', h - 20);
+			$(this).find('.title').css('min-height', h);
+		});
+
+		$('article span').click(function(){
+			if ($(this).attr('class') != 'blank')
+			{
+				$(this).toggleClass('selected');
+			}
+		});
+
+		$('.copy').click(function(){
+			var text = "";
+			var addressedTo = $('.dear').length;
+			$('#container article p').each(function(){
+				$(this).find('.selected').each(function(){
+					$(this).find('.blank').text('_____');
+					if ($(this).hasClass('dear'))
+					{
+						addressedTo= addressedTo - 1;
+					}
+					var add = $(this).text();
+					if (addressedTo==1)
+					{
+						add+="and "
+					}
+					text+= add + " ";
+				});
+				text += "\n\n";
+			});
+
+
+			$('.copied').css('visibility','visible').fadeTo(5000, 0, function(){
+        $(this).css("visibility", "hidden")});
+
+			const el = document.createElement('textarea');
+			el.value = text;
+			el.setAttribute('readonly', '');
+			el.style.position = 'absolute';
+			el.style.left = '-9999px';
+			document.body.appendChild(el);
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+			$('.blank').text('');
+		});
+	});
+	</script>
+
 	<style type="text/css">
 		body {
 			font-family: 'Work Sans', 'arial black', arial, sans-serif;
@@ -26,81 +83,29 @@
 			text-align: center;
 			padding: 30px 15px 30px 15px;
 			font-family: "Press Start 2P", monospace;
-			font-size: 35px;
 			background-color: pink;
 			color: #003261;
 			text-decoration: none;
 			line-height: 100%;
+		  	font-size: 2.5vw;
+		  	position: relative;
 		}
-		a#footer
+		header:after
 		{
-			font-size: 25px;
+			background: linear-gradient(-45deg, pink 16px, transparent 0), linear-gradient(45deg, pink 16px, transparent 0);
+			    background-position: left-bottom;
+			    background-repeat: repeat-x;
+			    background-size: 32px 32px;
+			    content: " ";
+			    display: block;
+			    position: absolute;
+			    bottom: -25px;
+			    left: 0px;
+			    width: 100%;
+			    height: 32px;
+			transform: rotate(180deg);
 		}
-		#container
-		{
-			width: 100%;
-			margin: 0 auto;
-			text-align: center;
-		}
-
-		main
-		{
-			float: left;
-		}
-		main, aside
-		{
-			max-width: 39%;
-			margin: 30px;
-			margin-top: 0px;
-			display: inline-block;
-			padding: 15px;
-			border: 1px solid pink;
-			font-size: 25px;
-			text-align: left;
-		}
-		article
-		{
-			border: 1px solid pink;
-			font-size: 25px;
-			text-align: left;
-			padding: 15px;
-			margin: 30px;
-		}
-		main:hover, aside:hover
-		{
-			background-color: pink;
-			color: #003261;
-		}
-		main:hover b, aside:hover b
-		{
-			color: #003261;
-		}
-		main:hover span, aside:hover span
-		{
-			border-bottom: 2px solid #003261;
-		}
-		p
-		{
-			font-size: 16px;
-			text-indent: 30px;
-			text-align: justify;
-		}
-		p u, p a{
-			text-decoration: none;
-			background-color: pink;
-			color: #003261;
-		}
-		span
-		{
-			display: inline-block;
-			width: 75px;
-			border-bottom: 2px solid #FFF;
-		}
-		p u span
-		{
-			border-bottom: 2px solid #003261;
-		}
-		ol
+		ol, .extra
 		{
 			font-size: 25px;
 			font-weight: 800;
@@ -111,6 +116,7 @@
 			margin: 75px 0px;
 			max-width: 800px;
 			text-align: justify;
+			line-height: 150%;
 		}
 		ol li{
 			counter-increment: counter1;
@@ -127,16 +133,173 @@
 			text-align: center;
 			border-radius: 1em;
 			display: inline-block;
-			height: 25px;
-			width: 25px;
+			height: 37.5px;
+			width: 37.5px;
 			margin-right: 50px;
 		}
-		ol li a
+		ol li a, .extra a
 		{
 			font-weight: bold;
 			background-color: pink;
 			color: #003261;
 			text-decoration: none;
+		}
+
+		#container
+		{
+			width: 80vw;
+			margin: 100 auto;
+			text-align: center;
+		}
+
+		p
+		{
+			text-align: justify;
+		}
+		p u, p a{
+			text-decoration: none;
+			background-color: pink;
+			color: #003261;
+		}
+
+		article
+		{
+			border: 1px solid pink;
+			font-size: 25px;
+			text-align: left;
+			padding: 15px 0px 15px 15px;
+			margin: 30px;
+		}
+
+		article p
+		{
+			font-size: 20px;
+			margin: 10px 100px;
+			position: relative;
+			left: 30px;
+			line-height: 175%;
+		}
+		article span
+		{
+			border: 1px solid #003261;
+		}
+		article span:hover
+		{
+			cursor: pointer;
+			border: 1px solid pink;
+		}
+		article p:first-child
+		{
+			margin-top: 0px;
+		}
+		span.selected
+		{
+			background-color: pink;
+			color: #003261;
+			border: 1px solid pink;
+		}
+		span.selected:hover
+		{
+			background-color: #003261;
+			color: pink;
+			border: 1px solid pink;
+		}
+		span.blank
+		{
+			display: inline-block;
+			width: 3vw;
+			border-bottom: 2px solid #FFF;
+		    pointer-events: none;
+		}
+		u span.blank
+		{
+			border-bottom: 2px solid #003261;
+		}
+		span.selected span.blank 
+		{
+			border-bottom: 2px solid #003261;
+		}
+		span:hover span.blank
+		{
+			border-bottom: 2px solid #fff;
+		}
+		span.selected:hover span.blank
+		{
+			border-bottom: 2px solid pink;
+		}
+
+		article .title
+		{
+			writing-mode: vertical-lr;
+			float: left;
+			width: 50px;
+			background-color: pink;
+			color: #003162;
+			font-size: 50px;
+			transform: rotate(180deg);
+			text-align: center;
+			font-family: 'Ramaraja', serif;
+			position: relative;
+			left: -15px;
+			top: -15px;
+			padding: 5px 15px;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+
+		}
+		.extra
+		{
+			display: block;
+			line-height: 150%;
+			font-weight: 600;
+			margin: 0 auto;
+			width: 800px;
+		}
+		.extra p
+		{
+			text-align: center;
+		}
+		.copy
+		{
+			cursor: pointer;
+		}
+		.copied
+		{
+			font-size: 15px;
+			padding: 4px 10px;
+			border: 1px solid pink;
+			position: relative;
+			top: 20px;
+			left: 400px;
+			visibility: hidden;
+		}
+		.copied::after
+		{
+			content: '';
+			width: 0; 
+			height: 0; 
+			border-left: 14px solid transparent;
+			border-right: 14px solid transparent;
+			border-top: 14px solid #003261;
+			position: relative;
+			top: 36px;
+			left: 0px;
+		}
+		.copied::before
+		{
+			content: '';
+			width: 0; 
+			height: 0; 
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-top: 15px solid pink;
+			position: relative;
+			top: 37px;
+			left: 95px;
 		}
 	</style>
 </head>
@@ -144,77 +307,84 @@
 	<header>No More Racist Police</header>
 	<ol>How to use this page
 		<li><a href="https://myreps.datamade.us/" target="_blank">Click here</a> to find your local, county, state, and federal representatives. <a href="https://www.winningjustice.org/search?recordType=District" target="_blank">Click here</a> to find your district prosecutor. Gather the <u>email addresses</u> of all your local representatives, <u>county</u> representatives, <u>and state</u> representatives. </li>
-		<li>Copy and paste the scripts below into the email body</li>
-		<li><u>Modify scripts to reflect your beliefs</u></li>
-		<li>Send</li>
-		<li>Share with others</li>
+		<li>Use the script fragments below to compose an original message. Copy-and-pasted messages simply go to spam.</li>
+		<li>Make sure your message reflects your beliefs, but don't forget to <u>demand divestment and accountability, not reform.</u> Careful not to emphasize reforms such as body cameras over real accountability and financial investments in real public health and safety services in your email. If you haven't yet learned about the history and failure of police reform, <a href="https://www.nytimes.com/2020/06/12/opinion/sunday/floyd-abolish-defund-police.html" target="_blank">click here</a> to read more.</li>
+		<li>Send your letter</li>
+		<li>Share this site with others</li>
 		<li>Keep reporting abusive officers and <u>demanding they be fired and charged, not just 'investigated'</u></li>
 	</ol>
+
+
+	<header>A letter for your representatives</header>
+
 	<div id="container">
-	<main><b>An email script for your local representatives</b>
 
-		  <p>
-		  	Dear Mayor <span> </span> and Councilpeople <span> </span>, <span> </span>, and <span> </span>,</p>
+		<div class="extra">
+			<p>Click on any sentence to add it to your email.</p>
+		</div>
 
-			<p>I am a resident of <span> </span> and I am getting in touch because I am deeply troubled by the treatment of Black Americans by police in police departments nationwide. I would like to know what kinds of safeguards our town's police department has in place to prevent incidents of racism by police.</p>
+		<article>
+			<div class="title">Introduction</div>
+			<div class="content">
+				<p>
+					<span class="selected">Dear</span> <span class="dear">Mayor <span class="blank"> </span></span>, <span class="dear">Councilpeople <span class="blank"> </span>, <span class="blank"> </span>, and <span class="blank"> </span>,</span> <span class="dear">Senator <span class="blank"> </span></span>and <span class="dear">Representatives <span class="blank"> </span> and <span class="blank"> </span>,</span></span>
+				</p>
+				<p>
+					<span class="selected">My name is <span class="blank"> </span> and I am a taxpayer and resident of <span class="blank"> </span>.</span>
+				<span>I am getting in touch because I am deeply troubled by the treatment of Black Americans by police in police departments nationwide.</span>
+				<span class="selected">I would like to know what kinds of safeguards our town's police department has in place to prevent incidents of racism by police.</span>
+				<span class="selected">Furthermore, given the failing record police departments nationwide, I encourage you to restrict the budget of our local police department and reallocate the difference towards more effective community safety and health agencies.</span>
+				</p>
+			</div>
+		</article>
 
-			<p>Are <span> </span> PD required to wear body cameras to record their responses to calls on video? Does the department perform any kind of anti-racism training for officers? Are new recruits screened in any way to prevent the hiring of racists, for instance through looking at social media posts?</p>
+		<article>
+			<div class="title">Recruitment</div>
+			<div class="content">
+				<p>
+					<span>Are <span class="blank"> </span> PD required to wear body cameras to record their responses to calls on video?</span>
+					<span class="selected">Does the department perform any kind of anti-racism training for officers? Are new recruits screened in any way to prevent the hiring of racists, for instance through looking at social media posts?</span>
+				</p>
+			</div>
+		</article>
 
-			<p>How does internal affairs investigate and respond to reports of discrimination by police officers? Are <span> </span> PD held liable for misconduct in a serious way, or are they merely given paid leave for the duration of an internal investigation? Are any controls in place to prevent abusive officers, such as withholding pensions for officers with an excess of public complaints or a history of excessive force, or barring them from seeking employment in other police departments?</p>
+		<article>
+			<div class="title">Accountability</div>
+			<div class="content">
+				<p>
+					<span class="selected">How does internal affairs investigate and respond to reports of discrimination by police officers?</span>
+					<span class="selected">Are <span class="blank"> </span> PD held liable for misconduct in a serious way, or are they merely given paid leave for the duration of an internal investigation?</span>
+					<span class="selected">Are any controls in place to protect the public from abusive officers, such as withholding pensions for officers with an excess of public complaints or a history of excessive force, or barring them from seeking employment in other police departments?</span>
+				</p>
+			</div>
+		</article>
 
-			<p>If these safeguards are not in place, they certainly should be, and I do not support my local taxes paying to fund a police department that perpetuates racism and violence. Services I would rather see funded include: mental health professionals, crisis de-escalators, support for those suffering domestic abuse and addiction in our community, to name only a few.   </p>
+		<article>
+			<div class="title">Divest</div>
+			<div class="content">
+				<p>
+				<span class="selected">If these safeguards are not in place, they certainly should be, and I do not support my local taxes paying to fund a police department that perpetuates racism and violence.</span>
+				<span>Services I would rather see funded include: mental health professionals, crisis de-escalators, support for those suffering domestic abuse and addiction in our community, to name only a few.   </span>
+			</div>
+		</article>
 
-			<p>Thank you for your attention to my concerns. I hope to hear back from you soon.</p>
+		<article>
+			<div class="title">Conclusion</div>
+			<div class="content">
+				<p><span>Thank you for your attention to my concerns. I hope to hear back from you soon.</span></p>
 
-			<p>Signed, <span> </span></p>
-	</main>
-	<aside>
-  <b>An email script for your county and state representatives</b>
+				<p> <span class="selected">Signed, <span class="blank"> </span></span></p>
+			</div>
+		</article>
 
-	<p>Dear Senator <span> </span> and Representatives <span> </span> and <span> </span>,</p>
 
-<p>I am a resident of <span> </span> in <span> </span> County and I am getting in touch because I am deeply troubled the treatment of Black Americans by police in police departments nationwide. I would like to know what kinds of safeguards our town's police department has in place to prevent incidents of racism by police. </p>
-
-<p>Are local and county PD required to wear body cameras to record their responses to calls on video? Do departments perform any kind of anti-racism training for officers? Are new recruits screened in any way to prevent the hiring of racists, for instance through looking at social media posts?</p>
-
-<p>How does internal affairs investigate and respond to reports of discrimination by police officers? Are <span> </span> PD held liable for misconduct in a serious way, or are they merely given paid leave for the duration of an internal investigation? Are any controls in place to prevent abusive officers, such as withholding pensions for officers with an excess of public complaints or a history of excessive force, or barring them from seeking employment in other police departments?</p>
-
-<p>If these safeguards are not in place, they certainly should be, and I do not support my local taxes paying to fund a police department that perpetuates racism and violence. Services I would rather see funded include: mental health professionals, crisis de-escalators, support for those suffering domestic abuse and addiction in our community, to name only a few.   </p>
-
-<p>Additionally, how do county and state-wide agencies hold local police departments accountable to ensure incidences of racist violence by police are not simply swept under the rug?</p>
-
-<p>Thank you for your attention to my concerns. I hope to hear back from you soon.</p>
-
-<p>Signed, <span> </span></p></aside>
+		<div class="extra">
+			<span class="copied">Copied!</span>
+			<p class="copy"><u>Click here to copy your letter.</u></p>
+		<p>Want to add more to your letter? <a href="https://defund12.org/">Draw inspiration from letters written to leaders of big cities here.</a></p>
+		<p>Thank you!</p>
+		</div>
 </div>
-
-	<header>How do I respond to their response?</header>
-
-<article>
-	<b>An email script for continue to push for re-investment to officials who insist on reform alone</b>
-
-	<p>Dear Mayor <span> </span> and Representatives <span> </span> and <span> </span>,</p>
-
-<p>This is <span> </span> emailing again to continue a conversation about policing in <span> </span>. I read the police chief’s statement and the language resonated with me but ultimately I do not feel satisfied until I see that our town is committed to translating the Chief’s words and intentions into actions. </p>
-
-<p>Organizations currently working towards the end of racist police violence advocate two approaches to solving the problem: the first are reforms, the second is divesting from the police budget and reinvesting that money into alternatives to policing for our community’s health and safety. I do not believe the two are mutually exclusive and that our community should be doing both. With that in mind, allow me to direct you towards two organizations, one advocating for police reform, the other for re-investment. </p>
-
-<p>Campaign Zero advocates for the demilitarization of policing, the improvement of training, and body cameras, some of which I mentioned in my prior email. Although our department has already implemented some of these reforms, I personally know people (some Black, some white) who continue to experience police harassment in <span> </span>, which indicates to me that reform has not been a successful approach here. 
-
-<p>On which note, I refer you to MPD150, a Minneapolis organization advocating for divestment from police budgets and reinvestment into alternatives to policing on a variety of issues property crime, domestic violence, drugs, and traffic stops. Domestic violence and traffic stops are two of the major responsibilities of police officers in our town, and I believe both issues are both better addressed through alternatives to policing. Here's why:</p> 
-
-<p> <u>The National Center for Women & Policing reports that domestic abuse is 4x as prevalent within police households than within the general population, which further makes me doubt that the money we allocate to combat domestic violence is actually being spent effectively when we spend it on police. Someone who is more likely to commit domestic abuse strikes me as a poor choice of person to respond to a domestic abuse crisis. I'd rather spend on safe houses, crisis counseling, and community support for victims of domestic abuse.</u></p>
-
-<p><u>As for traffic violations, I personally have been harassed by traffic police— sometimes in unmarked cars— for doing nothing but driving at night, and it does not make me feel safe to see armed officers parked around the town with bright lights all night. I have been pulled over in my own driveway after a neighbor reported a "suspicious vehicle", an obvious dogwhistle for what my friend's car says about her class and race. <span> </span> has a higher police presence than other local towns, for instance <span> </span>, and I consider it a waste of money to fund so much nighttime traffic policing. It is also a sign of lazy town budgeting to rely on the income of traffic violations to fill our town budget. Continuing on the topic of traffic stops, I believe the use of bronze medallions, medallions distributed by police to family that indicate they are part of the police “community," is a clear sign of corruption indicating that police are not truly working to keep roads safe from traffic violations. I know several <span> </span> residents personally who use such medallions to get a free pass on violations. This is blatantly corrupt. Rather than fund the police, I would prefer our tax money go to unarmed traffic monitors who do not give a free pass to family members.</p></u>
-
-<p>Regardless of the police chief’s words, ultimately <span> </span> has a reputation for being a racist town that is not welcoming to Black people or immigrants. I know the experiences of my Black friends and leaders within <span> </span> attest that this reputation for racism is not merely a stereotype, but a real fact of our community’s culture. I find that unacceptable. If you don’t find it unacceptable, quite frankly, your racism disqualifies you from truly serving the community and you should not be working at any level of government.</p>
-
-<p>That is why I believe our community, led by you as our elected leaders, needs to prioritize researching the work of Campaign Zero and MPD150 and implementing it here in our town. If we don’t commit to setting an example for racial justice through a combination of police reform, divestment, and anti-racism education efforts for our majority white population about ending racism, then we will continue to be a racist town that wastes its tax money on an unreliable, corrupt, and inadequately trained police department. Since I know these ideas may be new to you, I am happy to guide you in the research that will be necessary to implement the reforms our town—and our state as a whole— desperately needs. Until we do so, not only will our town retain its unfortunate reputation, it will also never truly be a safe community. Thank you for your attention to my words— I  hope you take them seriously. </p>
-
-<p>Signed, <span> </span> </p>
-
-<p><i><u>Pink</u> indicates areas of the letter you may have to customize to the reality of your area. <a href="https://defund12.org/">Draw inspiration from letters written to leaders of big cities here.</a><i></p>
-</article>
 
 
 	<a id="footer" href="http://how-can-i-help.github.io">Now what else can I do to help?</footer>
